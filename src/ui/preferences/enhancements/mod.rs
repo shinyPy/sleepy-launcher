@@ -12,10 +12,12 @@ use enum_ordinalize::Ordinalize;
 pub mod game;
 pub mod sandbox;
 pub mod environment;
+pub mod mods_settings;
 
 use game::*;
 use sandbox::*;
 use environment::*;
+use mods_settings::*;
 
 use crate::*;
 
@@ -26,7 +28,8 @@ pub struct EnhancementsApp {
     gamescope: AsyncController<GamescopeApp>,
     game_page: AsyncController<GamePage>,
     sandbox_page: AsyncController<SandboxPage>,
-    environment_page: AsyncController<EnvironmentPage>
+    environment_page: AsyncController<EnvironmentPage>,
+    mods_page: AsyncController<ModsSettingsPage>,
 }
 
 #[derive(Debug)]
@@ -37,6 +40,7 @@ pub enum EnhancementsAppMsg {
     OpenGameSettingsPage,
     OpenSandboxSettingsPage,
     OpenEnvironmentSettingsPage,
+    OpenModsSettingsPage,
 
     Toast {
         title: String,
@@ -96,6 +100,19 @@ impl SimpleAsyncComponent for EnhancementsApp {
                     set_activatable: true,
 
                     connect_activated => EnhancementsAppMsg::OpenEnvironmentSettingsPage
+                },
+
+                adw::ActionRow {
+                    set_title: "ZZMI Mods",
+                    set_subtitle: "Configure 3DMigoto mod loading",
+
+                    add_suffix = &gtk::Image {
+                        set_icon_name: Some("go-next-symbolic")
+                    },
+
+                    set_activatable: true,
+
+                    connect_activated => EnhancementsAppMsg::OpenModsSettingsPage
                 }
             },
 
@@ -427,6 +444,9 @@ impl SimpleAsyncComponent for EnhancementsApp {
 
         #[local_ref]
         environment_page -> adw::NavigationPage,
+
+        #[local_ref]
+        mods_page -> adw::NavigationPage,
     }
 
     async fn init(
@@ -451,12 +471,17 @@ impl SimpleAsyncComponent for EnhancementsApp {
 
             environment_page: EnvironmentPage::builder()
                 .launch(())
-                .forward(sender.input_sender(), std::convert::identity)
+                .forward(sender.input_sender(), std::convert::identity),
+
+            mods_page: ModsSettingsPage::builder()
+                .launch(())
+                .forward(sender.input_sender(), std::convert::identity),
         };
 
         let game_page = model.game_page.widget();
         let sandbox_page = model.sandbox_page.widget();
         let environment_page = model.environment_page.widget();
+        let mods_page = model.mods_page.widget();
 
         let widgets = view_output!();
 
@@ -499,6 +524,13 @@ impl SimpleAsyncComponent for EnhancementsApp {
                     .unwrap_unchecked()
                     .widget()
                     .push_subpage(self.environment_page.widget());
+            }
+
+            EnhancementsAppMsg::OpenModsSettingsPage => unsafe {
+                PREFERENCES_WINDOW.as_ref()
+                    .unwrap_unchecked()
+                    .widget()
+                    .push_subpage(self.mods_page.widget());
             }
 
             EnhancementsAppMsg::Toast { title, description } => {

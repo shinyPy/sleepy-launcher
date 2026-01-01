@@ -56,3 +56,10 @@ borderless = Borderless
 headless = Headless
 popup = Popup
 fullscreen = Fullscreen
+
+# ZZMI Mods
+mods = Mods
+zzmi-mods = ZZMI Mods
+enable-mods = Enable Mods
+zzmi-path = ZZMI Path
+mods-settings-description = Configure 3DMigoto mod loading
