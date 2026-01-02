@@ -10,6 +10,30 @@
 
 <br>
 
+# 🍴 Fork Features
+
+This fork includes **ZZMI (Zenless Zone Zero Model Importer)** integration for mod support on Linux/Wine:
+
+| Feature | Description |
+| ------- | ----------- |
+| **Auto-Download** | XXMI-Libs and ZZMI-Package are automatically downloaded on first launch |
+| **One-Click Enable** | Toggle mods on/off from Settings → Enhancements → Mods |
+| **Linux Stability** | Automatic `d3dx.ini` patching to disable crash-prone features (hunting mode, overlay, etc.) |
+| **Wine Compatibility** | Pre-configured environment variables for optimal DXVK/Wine stability |
+| **Custom Mods Folder** | Configure your own mods folder location |
+
+### How to Use
+
+1. Go to **Settings → Enhancements → Mods**
+2. Enable the **"Enable Mods"** toggle
+3. Place your character mod folders in `~/.local/share/sleepy-launcher/zzmi/Mods` (or your custom folder)
+4. Launch the game
+
+> [!NOTE]
+> Mods are automatically cleaned up when disabled, and re-applied on each launch when enabled.
+
+<br>
+
 # ♥️ Useful links and thanks
 
 * [macOS launcher](https://github.com/3Shain/yet-another-anime-game-launcher) which contains some additional compatibility components
