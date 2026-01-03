@@ -31,6 +31,7 @@ This fork includes **ZZMI (Zenless Zone Zero Model Importer)** integration for m
 
 > [!NOTE]
 > Mods are automatically cleaned up when disabled, and re-applied on each launch when enabled.
+> Recommended to use Spritz-Wine-TKG-10.15-2 as I find it stable and no crash happened when running with mods
 
 <br>
 
